@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Question for You ❤️</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #ffe6e6; /* Cute pink background */
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 0;
+            overflow: hidden; /* Prevents scrollbars when button moves */
+        }
+
+        .container {
+            position: relative;
+        }
+
+        h1 {
+            color: #ff4d4d;
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: #555;
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        #yesBtn {
+            background-color: #ff4d4d;
+            color: white;
+            font-weight: bold;
+        }
+
+        #yesBtn:hover {
+            background-color: #e60000;
+            transform: scale(1.1);
+        }
+
+        #noBtn {
+            background-color: white;
+            color: #ff4d4d;
+            border: 2px solid #ff4d4d;
+            font-weight: bold;
+            position: relative; /* Essential for moving */
+        }
+
+        /* The hidden message styling */
+        .hidden-message {
+            display: none;
+        }
+        
+        .hidden-message img {
+            max-width: 300px;
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="mainContainer">
+        <h1>Will you be my Valentine? 🌹</h1>
+        <p>I really want you to say yes...</p>
+        <div class="buttons">
+            <button id="yesBtn">Yes! ❤️</button>
+            <button id="noBtn">No 😢</button>
+        </div>
+    </div>
+
+    <div class="hidden-message" id="messageContainer">
+        <h1>YAY! You made me the happiest person! ❤️</h1>
+        <p>See you on the 14th! 😘</p>
+        <img src="https://media.giphy.com/media/26BRv0ThflsHCqDrG/giphy.gif" alt="Cute Bear">
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+        const mainContainer = document.getElementById('mainContainer');
+        const messageContainer = document.getElementById('messageContainer');
+
+        // Make the "No" button run away on hover (desktop) or touch (mobile)
+        function moveButton() {
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            
+            noBtn.style.position = 'absolute';
+            noBtn.style.left = `${x}px`;
+            noBtn.style.top = `${y}px`;
+        }
+
+        noBtn.addEventListener('mouseover', moveButton);
+        noBtn.addEventListener('touchstart', moveButton); // For mobile support
+
+        // What happens when she clicks Yes
+        yesBtn.addEventListener('click', () => {
+            mainContainer.style.display = 'none';
+            messageContainer.style.display = 'block';
+        });
+    </script>
+</body>
+</html>
