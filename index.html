@@ -17,7 +17,7 @@
             justify-content: center;
             align-items: center;
             /* Dark, moody gradient */
-            background: linear-gradient(to bottom, #203a43, #2c5364); 
+            background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364); 
             font-family: 'Poppins', sans-serif;
             overflow: hidden;
             position: relative;
@@ -49,30 +49,30 @@
 
         /* Dark Glassmorphism Card */
         .card {
-            background: rgba(0, 0, 0, 0.4); /* Dark background */
+            background: rgba(0, 0, 0, 0.6); /* Darker background */
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             padding: 40px;
             border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.8);
             text-align: center;
             max-width: 90%;
             width: 420px;
             z-index: 100;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.05);
             transition: opacity 2s ease;
         }
 
         /* Sad GIF styling */
         .gif-area img {
             width: 100%;
-            max-width: 200px;
+            max-width: 250px; /* Made slightly larger */
             height: auto;
-            border-radius: 10px;
+            border-radius: 5px;
             margin-bottom: 20px;
-            opacity: 0.8; /* Slightly faded */
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            filter: grayscale(60%); /* Make it look duller */
+            opacity: 0.9; 
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+            filter: grayscale(100%) contrast(120%); /* Black and white, high contrast */
         }
 
         /* Typography */
@@ -82,6 +82,7 @@
             margin-bottom: 15px;
             font-weight: 600;
             letter-spacing: 1px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
 
         .message-text {
@@ -110,6 +111,7 @@
             background: rgba(255,255,255,0.1);
             color: #fff;
             border-color: #fff;
+            box-shadow: 0 0 15px rgba(255,255,255,0.2);
         }
 
         /* Fade out class */
@@ -137,10 +139,10 @@
 
     <div class="card" id="mainCard">
         <div class="gif-area">
-            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcHM3b3J6aWdvb3Rzb2F3N3J5bnZ6aG55Znd4M2V0eG54aG55Znd4MyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/UQA6yRrXHiqxW/giphy.gif" alt="Sad rain">
+            <img src="https://media.giphy.com/media/kaMm63Bf82kFy/giphy.gif" alt="Walking away sad">
         </div>
         
-        <h1>Goodbye, Maryam.</h1>
+        <h1> Maryam </h1>
         <div class="message-text" id="typingText"></div>
 
         <button id="acceptBtn">I accept your choice.</button>
@@ -161,25 +163,25 @@
         const mainCard = document.getElementById('mainCard');
         const finalMsg = document.getElementById('finalMsg');
 
-        // 1. Typing Effect (Slower, more melancholic)
+        // 1. Typing Effect
         let charIndex = 0;
         function typeWriter() {
             if (charIndex < textToType.length) {
                 typingElement.innerHTML += textToType.charAt(charIndex);
                 charIndex++;
-                setTimeout(typeWriter, 70); // Slightly slower typing
+                setTimeout(typeWriter, 70); 
             }
         }
         setTimeout(typeWriter, 1000);
 
         // 2. Rain Generator
         function createRain() {
-            const amount = 50; // Amount of raindrops
+            const amount = 80; // More rain
             for (let i = 0; i < amount; i++) {
                 const drop = document.createElement('div');
                 drop.className = 'drop';
                 drop.style.left = Math.random() * 100 + 'vw';
-                drop.style.animationDuration = Math.random() * 1 + 0.5 + 's';
+                drop.style.animationDuration = Math.random() * 0.5 + 0.4 + 's'; // Faster rain
                 drop.style.opacity = Math.random();
                 rainBox.appendChild(drop);
             }
@@ -188,13 +190,8 @@
 
         // 3. The "Acceptance" Action
         acceptBtn.addEventListener('click', function() {
-            // Fade out the card slowly
             mainCard.classList.add('fade-out');
-            
-            // Show the final faint text in the background
             finalMsg.style.opacity = 1;
-            
-            // Optional: Make rain fall harder/darker (visual metaphor)
             document.body.style.background = "#000000";
             document.body.style.transition = "background 3s ease";
         });
