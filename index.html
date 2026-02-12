@@ -1,195 +1,316 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Maryam </title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hey Maryam! ❤️</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+    <style>
+        /* --- CSS RESET & BASE --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
-        body {
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(to bottom, #0f172a, #1e293b); 
-            font-family: 'Poppins', sans-serif;
-            overflow: hidden;
-            position: relative;
-            color: #94a3b8;
-        }
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
 
-        /* --- Rain Effect --- */
-        .rain-container {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: 1;
-            pointer-events: none;
-        }
+        /* Animated Background Gradient */
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
 
-        .drop {
-            position: absolute;
-            bottom: 100%;
-            width: 1px;
-            height: 80px;
-            background: rgba(255, 255, 255, 0.05);
-            animation: fall linear infinite;
-        }
+        /* Glassmorphism Card */
+        .card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+            text-align: center;
+            max-width: 90%;
+            width: 450px;
+            transition: transform 0.3s ease;
+            z-index: 100;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+        }
 
-        @keyframes fall {
-            to { transform: translateY(120vh); }
-        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
 
-        /* --- Sad Heart Animation (CSS Only) --- */
-        .heart-container {
-            margin-bottom: 30px;
-            display: flex;
-            justify-content: center;
-            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.1));
-        }
+        
+        /* Cute GIF styling */
+        .gif-area img {
+            width: 180px;
+            height: auto;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
 
-        .broken-heart {
-            font-size: 80px;
-            animation: pulse 4s ease-in-out infinite;
-            opacity: 0.6;
-        }
+        /* Typography */
+        h1 {
+            color: #ff4757;
+            font-size: 2rem;
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 0.3; transform: scale(0.95); }
-            50% { opacity: 0.6; transform: scale(1); }
-        }
+        .typing-effect {
+            font-family: 'Indie Flower', cursive;
+            color: #2f3542;
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            min-height: 1.5em;
+        }
 
-        /* --- Card --- */
-        .card {
-            background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            padding: 50px 40px;
-            border-radius: 24px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            text-align: center;
-            max-width: 90%;
-            width: 440px;
-            z-index: 100;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: opacity 2.5s ease, transform 2.5s ease;
-        }
+        /* Buttons Area */
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-top: 20px;
+            position: relative;
+            min-height: 60px;
+        }
 
-        h1 {
-            color: #f8fafc;
-            font-size: 1.6rem;
-            margin-bottom: 20px;
-            font-weight: 400;
-            letter-spacing: 2px;
-        }
+        button {
+            padding: 15px 35px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
 
-        .message-text {
-            font-family: 'Indie Flower', cursive;
-            color: #94a3b8;
-            font-size: 1.2rem;
-            margin-bottom: 40px;
-            line-height: 1.6;
-            min-height: 4.8em;
-        }
+        #yesBtn {
+            background: #ff4757;
+            color: white;
+            box-shadow: 0 5px 20px rgba(255, 71, 87, 0.4);
+            z-index: 10;
+        }
 
-        button {
-            padding: 14px 45px;
-            font-size: 0.9rem;
-            background: transparent;
-            border: 1px solid rgba(148, 163, 184, 0.3);
-            color: #94a3b8;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            letter-spacing: 1px;
-        }
+        #yesBtn:hover {
+            transform: scale(1.1);
+            background: #ff6b81;
+        }
 
-        button:hover {
-            border-color: #f8fafc;
-            color: #f8fafc;
-            background: rgba(255, 255, 255, 0.02);
-        }
+        #noBtn {
+            background: #dfe4ea;
+            color: #2f3542;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
 
-        .fade-out {
-            opacity: 0;
-            transform: scale(0.98);
-            pointer-events: none;
-        }
+        /* Hidden Success Screen */
+        .success-screen {
+            display: none;
+            text-align: center;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255,255,255,0.95);
+            z-index: 200;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
 
-        .final-message {
-            position: absolute;
-            opacity: 0;
-            transition: opacity 4s ease 1s;
-            color: #475569;
-            font-size: 0.85rem;
-            text-align: center;
-            width: 100%;
-            bottom: 10%;
-        }
-    </style>
+        .success-screen h1 {
+            font-size: 3rem;
+            color: #ff4757;
+        }
+        
+        .success-screen p {
+            font-size: 1.5rem;
+            color: #555;
+            margin-top: 10px;
+        }
+
+        .success-screen img {
+            max-width: 300px;
+            border-radius: 20px;
+            margin-top: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        /* Floating Hearts Animation Background */
+        .floating-heart {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.6);
+            animation: float 6s linear infinite;
+            top: -10%;
+            z-index: 0;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(110vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
+    </style>
 </head>
 <body>
 
-    <div class="rain-container" id="rainBox"></div>
+    <div id="background-hearts"></div>
 
-    <div class="card" id="mainCard">
-        <div class="heart-container">
-            <div class="broken-heart">🥀</div>
-        </div>
-        
-        <h1>Maryam</h1>
-        <div class="message-text" id="typingText"></div>
+    <div class="card" id="mainCard">
+        <div class="gif-area">
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcDdtZ2JiZDR0a3lvMWF4OG8yc3p6Ymdvd3g2d245amdveDhyYmx6eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/cLS1cfxvGOPVpf9g3y/giphy.gif" alt="Cute Bear">
+        </div>
+        
+        <h1>Hey Maryam! ❤️</h1>
+        <div class="typing-effect" id="typingText"></div>
 
-        <button id="acceptBtn">I accept your choice.</button>
-    </div>
+        <div class="btn-group">
+            <button id="yesBtn">YES! 😍</button>
+            <button id="noBtn">No... 😢</button>
+        </div>
+    </div>
 
-    <div class="final-message" id="finalMsg">
-        Take care of yourself.<br>The page is now empty, just like this feeling.
-    </div>
+    <div class="success-screen" id="successScreen">
+        <h1>YAAAAY! 🎉</h1>
+        <p>I knew you'd say yes, Maryam! ❤️</p>
+        <img src="https://media.giphy.com/media/T86i6yDyOYz7J6dPhf/giphy.gif" alt="Happy Hug">
+    </div>
 
-    <script>
-        const textToType = "I understand now. You chose your own life, and I have to respect that. Even if it means walking away.";
-        const typingElement = document.getElementById('typingText');
-        const rainBox = document.getElementById('rainBox');
-        const acceptBtn = document.getElementById('acceptBtn');
-        const mainCard = document.getElementById('mainCard');
-        const finalMsg = document.getElementById('finalMsg');
+    <script>
+        // --- CONFIGURATION ---
+        const textToType = "Will you be my Valentine? 🌹";
+        const noMessages = [
+            "No? 😢", 
+            "Maryam, really?", 
+            "Don't be cold! 🥶", 
+            "Think again! 🤔", 
+            "I'm gonna cry... 😭", 
+            "Last chance! ⚠️", 
+            "Button is broken! 🔧",
+            "Okay, I give up... JK! 😂"
+        ];
 
-        // Typing Effect
-        let charIndex = 0;
-        function typeWriter() {
-            if (charIndex < textToType.length) {
-                typingElement.innerHTML += textToType.charAt(charIndex);
-                charIndex++;
-                setTimeout(typeWriter, 60); 
-            }
-        }
-        setTimeout(typeWriter, 800);
+        // --- ELEMENTS ---
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const typingElement = document.getElementById('typingText');
+        const mainCard = document.getElementById('mainCard');
+        const successScreen = document.getElementById('successScreen');
+        const bgHearts = document.getElementById('background-hearts');
 
-        // Rain Effect
-        function createRain() {
-            for (let i = 0; i < 60; i++) {
-                const drop = document.createElement('div');
-                drop.className = 'drop';
-                drop.style.left = Math.random() * 100 + 'vw';
-                drop.style.animationDuration = Math.random() * 0.7 + 0.5 + 's';
-                drop.style.opacity = Math.random() * 0.3;
-                rainBox.appendChild(drop);
-            }
-        }
-        createRain();
+        // --- STATE ---
+        let noCount = 0;
+        let yesSize = 1; // Scale factor
 
-        // Final Action
-        acceptBtn.addEventListener('click', function() {
-            mainCard.classList.add('fade-out');
-            finalMsg.style.opacity = 1;
-            document.body.style.background = "#020617";
-            document.body.style.transition = "background 4s ease";
-        });
-    </script>
+        // 1. Typing Effect
+        let charIndex = 0;
+        function typeWriter() {
+            if (charIndex < textToType.length) {
+                typingElement.innerHTML += textToType.charAt(charIndex);
+                charIndex++;
+                setTimeout(typeWriter, 100); // Typing speed
+            }
+        }
+        // Start typing after a short delay
+        setTimeout(typeWriter, 500);
+
+        // 2. The "No" Button Logic (The funny part)
+        function escapeNo() {
+            noCount++;
+            
+            // A. Make Yes button bigger
+            yesSize += 0.15;
+            yesBtn.style.transform = `scale(${yesSize})`;
+
+            // B. Change No button text
+            const msgIndex = Math.min(noCount, noMessages.length - 1);
+            noBtn.innerText = noMessages[msgIndex];
+
+            // C. Move No button randomly
+            const x = (Math.random() - 0.5) * 300; // Move range X
+            const y = (Math.random() - 0.5) * 300; // Move range Y
+            noBtn.style.transform = `translate(${x}px, ${y}px)`;
+
+            // SUPER FUNNY MODE: After 7 attempts, turn No into Yes
+            if (noCount > 7) {
+                noBtn.innerText = "YES! (I have no choice) ❤️";
+                noBtn.style.background = "#ff4757";
+                noBtn.style.color = "white";
+                // Remove the event listener so it acts like a Yes button
+                noBtn.removeEventListener('mouseover', escapeNo);
+                noBtn.removeEventListener('touchstart', escapeNo);
+                noBtn.addEventListener('click', acceptProposal);
+            }
+        }
+
+        noBtn.addEventListener('mouseover', escapeNo);
+        noBtn.addEventListener('touchstart', escapeNo); // Mobile support
+        noBtn.addEventListener('click', escapeNo); // Just in case they click fast
+
+        // 3. The "Yes" Action
+        function acceptProposal() {
+            // Hide main card
+            mainCard.style.display = 'none';
+            // Show success screen (flex to center)
+            successScreen.style.display = 'flex';
+            
+            // FIREWORKS!
+            launchConfetti();
+        }
+
+        yesBtn.addEventListener('click', acceptProposal);
+
+        // 4. Confetti Function
+        function launchConfetti() {
+            var duration = 4 * 1000;
+            var animationEnd = Date.now() + duration;
+            var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 999 };
+
+            function randomInRange(min, max) {
+                return Math.random() * (max - min) + min;
+            }
+
+            var interval = setInterval(function() {
+                var timeLeft = animationEnd - Date.now();
+
+                if (timeLeft <= 0) {
+                    return clearInterval(interval);
+                }
+
+                var particleCount = 50 * (timeLeft / duration);
+                
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+            }, 250);
+        }
+
+        // 5. Background Hearts Generator
+        function createHearts() {
+            for (let i = 0; i < 30; i++) {
+                let heart = document.createElement('div');
+                heart.className = 'floating-heart';
+                heart.innerHTML = '❤️';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = (Math.random() * 3 + 5) + 's';
+                heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                bgHearts.appendChild(heart);
+            }
+        }
+        createHearts();
+
+    </script>
 </body>
 </html>
