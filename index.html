@@ -74,7 +74,7 @@
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
             text-align: center;
             max-width: 90%;
-            width: 550px; /* Made wider for the longer text */
+            width: 550px; 
             z-index: 100;
             border: 1px solid rgba(255, 255, 255, 0.03);
             transition: opacity 3s ease, transform 3s ease;
@@ -95,9 +95,9 @@
             font-size: 1.15rem;
             margin-bottom: 40px;
             line-height: 1.7;
-            text-align: left; /* Better for reading long paragraphs */
-            white-space: pre-wrap; /* Preserves the line breaks in the JS string */
-            min-height: 250px; /* Reserves space so the button doesn't jump around */
+            text-align: left; 
+            white-space: pre-wrap; 
+            min-height: 250px; 
         }
 
         /* --- MINIMALIST BUTTON --- */
@@ -158,17 +158,16 @@
         
         <div class="message-text" id="typingText"></div>
 
-        <button id="acceptBtn">I accept your choice.</button>
+        <button id="acceptBtn">Close this.</button>
     </div>
 
     <div class="final-message" id="finalMsg">
-        Take care of yourself.
+        Take care of yourself, wherever you are.
     </div>
 
     <script>
         // --- TEXT CONFIGURATION ---
-        // Using \n\n to create actual paragraph breaks in the typing effect
-        const textToType = "The pain of walking away from someone you love isn’t sharp—it’s slow. It’s suffocating. I felt guilt. Rage. Doubt. I missed her terribly. I wanted her to call and say, “You were right. Let’s do it differently. I love you.” But that call never came.\n\nInstead, she became distant. Dismissive. Angry, even. I think I threatened something she didn’t want to confront—her control. Her ability to hold all the power. I left because I have to and I miss you and don't want this to happen but it should be Maryam.\n\nAnd still, even now, I sometimes ache for the imagined version of her. The woman I thought she could be. The future I had painted in my mind. But that wasn’t real.";
+        const textToType = "The pain of walking away from you isn’t sharp—it’s slow. It’s suffocating. I felt guilt. Rage. Doubt. I missed you terribly. I wanted you to call and say, “You were right. Let’s do it differently. I love you.” But that call never came.\n\nInstead, you became distant. Dismissive. Angry, even. I think I threatened something you didn’t want to confront—your control. Your ability to hold all the power. I left because I had to. I miss you, and I didn't want this to happen, Maryam, but it had to be this way.\n\nAnd still, even now, I sometimes ache for the imagined version of you. The woman I thought you could be. The future I had painted in my mind. But that wasn’t real.";
         
         const typingElement = document.getElementById('typingText');
         const rainBox = document.getElementById('rainBox');
@@ -184,9 +183,9 @@
                 charIndex++;
                 
                 // Slight pause on punctuation for emotional weight, faster for normal letters
-                let speed = 30; 
+                let speed = 35; 
                 let char = textToType.charAt(charIndex - 1);
-                if (char === '.' || char === '—' || char === '\n') speed = 250;
+                if (char === '.' || char === '—' || char === '\n') speed = 300;
                 
                 setTimeout(typeWriter, speed); 
             } else {
@@ -194,7 +193,7 @@
                 setTimeout(() => {
                     acceptBtn.style.opacity = 1;
                     acceptBtn.style.pointerEvents = "auto";
-                }, 1000);
+                }, 1500);
             }
         }
         
@@ -227,6 +226,11 @@
             setTimeout(() => {
                 finalMsg.style.opacity = 1;
             }, 500);
+            
+            // Finally, fade everything to complete blackness
+            setTimeout(() => {
+                finalMsg.style.opacity = 0;
+            }, 6000);
         });
     </script>
 </body>
