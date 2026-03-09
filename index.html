@@ -1,237 +1,347 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Goodbye, Maryam.</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maryam</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-    <style>
-        /* --- BASE STYLES --- */
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: linear-gradient(135deg, #0a0e27 0%, #1a1a3e 50%, #0d0d1f 100%);
+      color: #e0e0e0;
+      font-family: 'Poppins', sans-serif;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      width: 100%;
+    }
 
-        body {
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(to bottom, #0f172a, #020617); 
-            font-family: 'Poppins', sans-serif;
-            overflow: hidden;
-            position: relative;
-            color: #94a3b8;
-            transition: background 4s ease;
-        }
+    /* Rain Animation Container */
+    #rain-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
 
-        /* --- RAIN EFFECT --- */
-        .rain-container {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: 1;
-            pointer-events: none;
-        }
+    .drop {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.1);
+      width: 1px;
+      height: 50px;
+      animation: fall linear infinite;
+    }
 
-        .drop {
-            position: absolute;
-            bottom: 100%;
-            width: 1px;
-            height: 80px;
-            background: rgba(255, 255, 255, 0.08);
-            animation: fall linear infinite;
-        }
+    @keyframes fall {
+      to {
+        transform: translateY(100vh);
+      }
+    }
 
-        @keyframes fall {
-            to { transform: translateY(120vh); }
-        }
+    /* Glassmorphism Card */
+    .glass-card {
+      position: relative;
+      z-index: 10;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 50px 40px;
+      width: 90%;
+      max-width: 550px;
+      text-align: center;
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      animation: fadeIn 2s ease-out forwards;
+      transition: opacity 2s ease;
+    }
 
-        /* --- SYMBOLIC VISUAL (Broken Heart/Withered Flower) --- */
-        .visual-area {
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: center;
-        }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
-        .symbol {
-            font-size: 60px;
-            animation: pulse 5s ease-in-out infinite;
-            filter: grayscale(100%) opacity(0.5);
-        }
+    /* Symbol (Rose) */
+    .symbol {
+      font-size: 3.5rem;
+      margin-bottom: 25px;
+      display: inline-block;
+      animation: pulse 4s ease-in-out infinite;
+      filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+    }
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(0.95); opacity: 0.3; }
-            50% { transform: scale(1.05); opacity: 0.6; }
-        }
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 0.6;
+      }
+      50% {
+        transform: scale(1.08);
+        opacity: 0.3;
+      }
+    }
 
-        /* --- DARK GLASS CARD --- */
-        .card {
-            background: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            padding: 50px 40px;
-            border-radius: 24px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
-            text-align: center;
-            max-width: 90%;
-            width: 550px; 
-            z-index: 100;
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            transition: opacity 3s ease, transform 3s ease;
-        }
+    /* Title */
+    h1 {
+      font-weight: 300;
+      letter-spacing: 5px;
+      margin-bottom: 30px;
+      color: #fff;
+      font-size: 2.2rem;
+      text-transform: uppercase;
+    }
 
-        h1 {
-            color: #f8fafc;
-            font-size: 1.8rem;
-            margin-bottom: 25px;
-            font-weight: 300;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-        }
+    /* Message Text */
+    #message-text {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.3rem;
+      line-height: 1.8;
+      min-height: 160px;
+      color: #d1d1d1;
+      text-align: center;
+      margin-bottom: 35px;
+      font-weight: 400;
+    }
 
-        .message-text {
-            font-family: 'Indie Flower', cursive;
-            color: #8fa3b8;
-            font-size: 1.15rem;
-            margin-bottom: 40px;
-            line-height: 1.7;
-            text-align: left; 
-            white-space: pre-wrap; 
-            min-height: 250px; 
-        }
+    /* Close Button */
+    .btn-close {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: #aaa;
+      padding: 12px 30px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-family: 'Poppins', sans-serif;
+      transition: all 0.4s ease;
+      opacity: 0;
+      visibility: hidden;
+      letter-spacing: 1px;
+    }
 
-        /* --- MINIMALIST BUTTON --- */
-        button {
-            padding: 12px 40px;
-            font-size: 0.85rem;
-            background: transparent;
-            border: 1px solid rgba(148, 163, 184, 0.2);
-            color: #475569;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.6s ease;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            
-            /* Hidden initially, revealed by JS */
-            opacity: 0;
-            pointer-events: none; 
-        }
+    .btn-show {
+      animation: fadeIn 1.2s forwards;
+      visibility: visible;
+    }
 
-        button:hover {
-            border-color: #94a3b8;
-            color: #94a3b8;
-            background: rgba(255, 255, 255, 0.02);
-            box-shadow: 0 0 15px rgba(255,255,255,0.05);
-        }
+    .btn-close:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      border-color: #fff;
+      transform: scale(1.05);
+    }
 
-        /* --- STATES --- */
-        .fade-out {
-            opacity: 0;
-            transform: translateY(20px) scale(0.95);
-            pointer-events: none;
-        }
+    /* Final Screen */
+    #final-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 3s ease-in-out;
+    }
 
-        .final-message {
-            position: absolute;
-            opacity: 0;
-            transition: opacity 5s ease 1s;
-            color: #334155;
-            font-size: 0.85rem;
-            text-align: center;
-            width: 100%;
-            bottom: 10%;
-            letter-spacing: 1.5px;
-        }
-    </style>
+    .final-text {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.6rem;
+      color: #555;
+      text-align: center;
+      animation: fadeInText 2s ease-out forwards;
+    }
+
+    @keyframes fadeInText {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .glass-card {
+        padding: 40px 25px;
+        max-width: 95%;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+        letter-spacing: 3px;
+      }
+
+      .symbol {
+        font-size: 2.8rem;
+      }
+
+      #message-text {
+        font-size: 1.1rem;
+        min-height: 140px;
+      }
+
+      .final-text {
+        font-size: 1.3rem;
+        padding: 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .glass-card {
+        padding: 30px 20px;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+        letter-spacing: 2px;
+        margin-bottom: 20px;
+      }
+
+      .symbol {
+        font-size: 2.5rem;
+        margin-bottom: 15px;
+      }
+
+      #message-text {
+        font-size: 1rem;
+        line-height: 1.6;
+        min-height: 120px;
+        margin-bottom: 25px;
+      }
+
+      .btn-close {
+        padding: 10px 20px;
+        font-size: 0.85rem;
+      }
+
+      .final-text {
+        font-size: 1.1rem;
+      }
+    }
+  </style>
 </head>
 <body>
 
-    <div class="rain-container" id="rainBox"></div>
+  <!-- Rain Container -->
+  <div id="rain-container"></div>
 
-    <div class="card" id="mainCard">
-        <div class="visual-area">
-            <div class="symbol">🥀</div>
-        </div>
-        
-        <h1>Maryam</h1>
-        
-        <div class="message-text" id="typingText"></div>
+  <!-- Main Glass Card -->
+  <div class="glass-card" id="main-card">
+    <div class="symbol">🥀</div>
+    <h1>MARYAM</h1>
+    <div id="message-text"></div>
+    <button class="btn-close" id="close-btn" onclick="closeExperience()">Close this.</button>
+  </div>
 
-        <button id="acceptBtn">Close this.</button>
-    </div>
+  <!-- Final Screen -->
+  <div id="final-screen">
+    <div class="final-text">Take care of yourself, wherever you are.</div>
+  </div>
 
-    <div class="final-message" id="finalMsg">
-        Take care of yourself, wherever you are.
-    </div>
+  <script>
+    // Emotional farewell message
+    const message = "Sometimes, the hardest part of moving forward is letting go of the words we never said. I wanted to thank you for the time we shared, for the quiet moments, and the lessons learned. We cross paths for reasons we don't always understand, and we part ways when the journey demands a different direction. I carry no ill will, only gratitude for the person you are. May your path be bright, even where mine cannot follow.";
 
-    <script>
-        // --- TEXT CONFIGURATION ---
-        const textToType = "The pain of walking away from you isn’t sharp—it’s slow. It’s suffocating. I felt guilt. Rage. Doubt. I missed you terribly. I wanted you to call and say, “You were right. Let’s do it differently. I love you.” But that call never came.\n\nInstead, you became distant. Dismissive. Angry, even. I think I threatened something you didn’t want to confront—your control. Your ability to hold all the power. I left because I had to. I miss you, and I didn't want this to happen, Maryam, but it had to be this way.\n\nAnd still, even now, I sometimes ache for the imagined version of you. The woman I thought you could be. The future I had painted in my mind. But that wasn’t real.";
-        
-        const typingElement = document.getElementById('typingText');
-        const rainBox = document.getElementById('rainBox');
-        const acceptBtn = document.getElementById('acceptBtn');
-        const mainCard = document.getElementById('mainCard');
-        const finalMsg = document.getElementById('finalMsg');
+    const textContainer = document.getElementById('message-text');
+    const closeBtn = document.getElementById('close-btn');
+    let i = 0;
 
-        // 1. Typing Effect
-        let charIndex = 0;
-        function typeWriter() {
-            if (charIndex < textToType.length) {
-                typingElement.innerHTML += textToType.charAt(charIndex);
-                charIndex++;
-                
-                // Slight pause on punctuation for emotional weight, faster for normal letters
-                let speed = 35; 
-                let char = textToType.charAt(charIndex - 1);
-                if (char === '.' || char === '—' || char === '\n') speed = 300;
-                
-                setTimeout(typeWriter, speed); 
-            } else {
-                // Fade the button in gracefully after the text finishes
-                setTimeout(() => {
-                    acceptBtn.style.opacity = 1;
-                    acceptBtn.style.pointerEvents = "auto";
-                }, 1500);
-            }
+    /**
+     * Typewriter effect with pauses at punctuation
+     */
+    function typeWriter() {
+      if (i < message.length) {
+        textContainer.innerHTML += message.charAt(i);
+        i++;
+        let speed = 50; // Default typing speed
+
+        // Add pause at punctuation for emotional effect
+        if (message.charAt(i - 1) === '.' || message.charAt(i - 1) === ',') {
+          speed = 600;
         }
-        
-        // Start typing after a short delay
-        setTimeout(typeWriter, 1200);
 
-        // 2. Persistent Rain Effect
-        function createRain() {
-            const dropCount = 80; // Heavier rain
-            for (let i = 0; i < dropCount; i++) {
-                const drop = document.createElement('div');
-                drop.className = 'drop';
-                drop.style.left = Math.random() * 100 + 'vw';
-                drop.style.animationDuration = Math.random() * 0.8 + 0.4 + 's';
-                drop.style.opacity = Math.random() * 0.25;
-                rainBox.appendChild(drop);
-            }
-        }
-        createRain();
+        setTimeout(typeWriter, speed);
+      } else {
+        // Show button after typing completes
+        closeBtn.classList.add('btn-show');
+      }
+    }
 
-        // 3. Acceptance Action
-        acceptBtn.addEventListener('click', function() {
-            // Card disappears into the darkness
-            mainCard.classList.add('fade-out');
-            
-            // Fades background to pure black
-            document.body.style.background = "#000000";
-            
-            // Shows final message after delay
-            setTimeout(() => {
-                finalMsg.style.opacity = 1;
-            }, 500);
-            
-            // Finally, fade everything to complete blackness
-            setTimeout(() => {
-                finalMsg.style.opacity = 0;
-            }, 6000);
-        });
-    </script>
+    /**
+     * Create rain animation
+     */
+    function createRain() {
+      const rainContainer = document.getElementById('rain-container');
+      for (let i = 0; i < 100; i++) {
+        const drop = document.createElement('div');
+        drop.className = 'drop';
+        drop.style.left = Math.random() * 100 + 'vw';
+        drop.style.animationDuration = (Math.random() * 2 + 1) + 's';
+        drop.style.animationDelay = Math.random() * 2 + 's';
+        drop.style.opacity = Math.random() * 0.5 + 0.2;
+        rainContainer.appendChild(drop);
+      }
+    }
+
+    /**
+     * Close experience and transition to final screen
+     */
+    function closeExperience() {
+      // Fade out main card
+      document.getElementById('main-card').style.opacity = '0';
+
+      // Show final screen after card fades
+      setTimeout(() => {
+        document.getElementById('final-screen').style.opacity = '1';
+        document.getElementById('main-card').style.display = 'none';
+      }, 2000);
+
+      // Fade out final text after delay
+      setTimeout(() => {
+        document.querySelector('.final-text').style.animation = 'fadeOut 3s forwards';
+      }, 4000);
+    }
+
+    /**
+     * Initialize on page load
+     */
+    window.addEventListener('load', () => {
+      createRain();
+      setTimeout(typeWriter, 1500);
+    });
+  </script>
+
 </body>
 </html>
