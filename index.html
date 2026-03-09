@@ -16,7 +16,6 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            /* Deep, dark void colors */
             background: linear-gradient(to bottom, #0f172a, #020617); 
             font-family: 'Poppins', sans-serif;
             overflow: hidden;
@@ -49,13 +48,13 @@
 
         /* --- SYMBOLIC VISUAL (Broken Heart/Withered Flower) --- */
         .visual-area {
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             display: flex;
             justify-content: center;
         }
 
         .symbol {
-            font-size: 70px;
+            font-size: 60px;
             animation: pulse 5s ease-in-out infinite;
             filter: grayscale(100%) opacity(0.5);
         }
@@ -70,12 +69,12 @@
             background: rgba(15, 23, 42, 0.6);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
-            padding: 60px 40px;
+            padding: 50px 40px;
             border-radius: 24px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
             text-align: center;
             max-width: 90%;
-            width: 440px;
+            width: 550px; /* Made wider for the longer text */
             z-index: 100;
             border: 1px solid rgba(255, 255, 255, 0.03);
             transition: opacity 3s ease, transform 3s ease;
@@ -84,7 +83,7 @@
         h1 {
             color: #f8fafc;
             font-size: 1.8rem;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             font-weight: 300;
             letter-spacing: 3px;
             text-transform: uppercase;
@@ -92,11 +91,13 @@
 
         .message-text {
             font-family: 'Indie Flower', cursive;
-            color: #64748b;
-            font-size: 1.25rem;
+            color: #8fa3b8;
+            font-size: 1.15rem;
             margin-bottom: 40px;
-            line-height: 1.6;
-            min-height: 4.5em; /* Prevents card jumping during typing */
+            line-height: 1.7;
+            text-align: left; /* Better for reading long paragraphs */
+            white-space: pre-wrap; /* Preserves the line breaks in the JS string */
+            min-height: 250px; /* Reserves space so the button doesn't jump around */
         }
 
         /* --- MINIMALIST BUTTON --- */
@@ -111,18 +112,23 @@
             transition: all 0.6s ease;
             letter-spacing: 2px;
             text-transform: uppercase;
+            
+            /* Hidden initially, revealed by JS */
+            opacity: 0;
+            pointer-events: none; 
         }
 
         button:hover {
             border-color: #94a3b8;
             color: #94a3b8;
-            background: rgba(255, 255, 255, 0.01);
+            background: rgba(255, 255, 255, 0.02);
+            box-shadow: 0 0 15px rgba(255,255,255,0.05);
         }
 
         /* --- STATES --- */
         .fade-out {
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(20px) scale(0.95);
             pointer-events: none;
         }
 
@@ -131,11 +137,11 @@
             opacity: 0;
             transition: opacity 5s ease 1s;
             color: #334155;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             text-align: center;
             width: 100%;
             bottom: 10%;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
         }
     </style>
 </head>
@@ -149,6 +155,7 @@
         </div>
         
         <h1>Maryam</h1>
+        
         <div class="message-text" id="typingText"></div>
 
         <button id="acceptBtn">I accept your choice.</button>
@@ -159,8 +166,9 @@
     </div>
 
     <script>
-        // --- CONFIGURATION ---
-        const textToType = "I understand now. You chose your own life, and I have to respect that. Even if it means walking away.";
+        // --- TEXT CONFIGURATION ---
+        // Using \n\n to create actual paragraph breaks in the typing effect
+        const textToType = "The pain of walking away from someone you love isn’t sharp—it’s slow. It’s suffocating. I felt guilt. Rage. Doubt. I missed her terribly. I wanted her to call and say, “You were right. Let’s do it differently. I love you.” But that call never came.\n\nInstead, she became distant. Dismissive. Angry, even. I think I threatened something she didn’t want to confront—her control. Her ability to hold all the power. I left because I have to and I miss you and don't want this to happen but it should be Maryam.\n\nAnd still, even now, I sometimes ache for the imagined version of her. The woman I thought she could be. The future I had painted in my mind. But that wasn’t real.";
         
         const typingElement = document.getElementById('typingText');
         const rainBox = document.getElementById('rainBox');
@@ -168,26 +176,40 @@
         const mainCard = document.getElementById('mainCard');
         const finalMsg = document.getElementById('finalMsg');
 
-        // 1. Typing Effect (Slow & Heavy)
+        // 1. Typing Effect
         let charIndex = 0;
         function typeWriter() {
             if (charIndex < textToType.length) {
                 typingElement.innerHTML += textToType.charAt(charIndex);
                 charIndex++;
-                setTimeout(typeWriter, 75); 
+                
+                // Slight pause on punctuation for emotional weight, faster for normal letters
+                let speed = 30; 
+                let char = textToType.charAt(charIndex - 1);
+                if (char === '.' || char === '—' || char === '\n') speed = 250;
+                
+                setTimeout(typeWriter, speed); 
+            } else {
+                // Fade the button in gracefully after the text finishes
+                setTimeout(() => {
+                    acceptBtn.style.opacity = 1;
+                    acceptBtn.style.pointerEvents = "auto";
+                }, 1000);
             }
         }
+        
+        // Start typing after a short delay
         setTimeout(typeWriter, 1200);
 
         // 2. Persistent Rain Effect
         function createRain() {
-            const dropCount = 70;
+            const dropCount = 80; // Heavier rain
             for (let i = 0; i < dropCount; i++) {
                 const drop = document.createElement('div');
                 drop.className = 'drop';
                 drop.style.left = Math.random() * 100 + 'vw';
-                drop.style.animationDuration = Math.random() * 0.8 + 0.5 + 's';
-                drop.style.opacity = Math.random() * 0.2;
+                drop.style.animationDuration = Math.random() * 0.8 + 0.4 + 's';
+                drop.style.opacity = Math.random() * 0.25;
                 rainBox.appendChild(drop);
             }
         }
