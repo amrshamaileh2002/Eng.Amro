@@ -1,318 +1,275 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Maryam</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maryam</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
 
-<style>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
+        body {
+            background: #050509;
+            color: #e0e0e0;
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
 
-body{
-background:#050509;
-color:#e0e0e0;
-font-family:'Poppins',sans-serif;
-overflow-y:auto;
-min-height:100vh;
-width:100%;
-display:flex;
-justify-content:center;
-align-items:center;
-padding:40px 0;
-}
+        /* Rain */
+        #rain-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
 
-/* Rain */
+        .drop {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.25);
+            width: 1px;
+            height: 50px;
+            animation: fall linear infinite;
+        }
 
-#rain-container{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-pointer-events:none;
-z-index:1;
-}
+        @keyframes fall {
+            to { transform: translateY(100vh); }
+        }
 
-.drop{
-position:absolute;
-background:rgba(255,255,255,0.25);
-width:1px;
-height:50px;
-animation:fall linear infinite;
-}
+        /* Glass Card */
+        .glass-card {
+            position: relative;
+            z-index: 10;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 50px 30px;
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+            animation: fadeIn 2.5s ease-out forwards;
+            transition: opacity 1.5s ease;
+        }
 
-@keyframes fall{
-to{
-transform:translateY(100vh);
-}
-}
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-/* Glass Card */
+        /* Symbol */
+        .symbol {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: inline-block;
+            animation: pulse 4s ease-in-out infinite;
+        }
 
-.glass-card{
-position:relative;
-z-index:10;
-background:rgba(0,0,0,0.55);
-backdrop-filter:blur(12px);
-border:1px solid rgba(255,255,255,0.08);
-border-radius:20px;
-padding:60px 45px;
-width:90%;
-max-width:560px;
-text-align:center;
-box-shadow:0 15px 40px rgba(0,0,0,0.7);
-animation:fadeIn 2s ease-out forwards;
-transition:opacity 2s ease;
-}
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.1); opacity: 0.4; }
+        }
 
-@keyframes fadeIn{
-from{
-opacity:0;
-transform:translateY(20px);
-}
-to{
-opacity:1;
-transform:translateY(0);
-}
-}
+        h1 {
+            font-weight: 400;
+            letter-spacing: 5px;
+            margin-bottom: 25px;
+            color: #fff;
+            font-size: 1.8rem;
+            text-transform: uppercase;
+        }
 
-/* Rose */
+        /* Message */
+        #message-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            line-height: 1.8;
+            min-height: 150px;
+            color: #d1d1d1;
+            text-align: center;
+            margin-bottom: 30px;
+            word-wrap: break-word;
+        }
 
-.symbol{
-font-size:3.5rem;
-margin-bottom:25px;
-display:inline-block;
-animation:pulse 4s ease-in-out infinite;
-}
+        /* Button */
+        .btn-close {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #aaa;
+            padding: 12px 35px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.4s ease;
+            opacity: 0;
+            visibility: hidden;
+            outline: none;
+        }
 
-@keyframes pulse{
-0%,100%{
-transform:scale(1);
-opacity:0.7;
-}
-50%{
-transform:scale(1.08);
-opacity:0.4;
-}
-}
+        .btn-show {
+            animation: fadeIn 1.5s forwards;
+            visibility: visible;
+        }
 
-h1{
-font-weight:400;
-letter-spacing:6px;
-margin-bottom:30px;
-color:#fff;
-font-size:2.3rem;
-text-transform:uppercase;
-}
+        .btn-close:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border-color: #fff;
+        }
 
-/* Message */
+        /* Final Screen */
+        #final-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 3s ease-in-out;
+            padding: 20px;
+        }
 
-#message-text{
-font-family:'Playfair Display',serif;
-font-size:1.4rem;
-line-height:1.9;
-min-height:180px;
-color:#e2e2e2;
-text-align:center;
-margin-bottom:35px;
-}
+        .final-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: #888;
+            text-align: center;
+            line-height: 1.6;
+        }
 
-/* Button */
+        /* Bottom note */
+        .bottom-note {
+            position: fixed;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.25);
+            letter-spacing: 1px;
+            z-index: 5;
+            padding: 0 10px;
+        }
 
-.btn-close{
-background:transparent;
-border:1px solid rgba(255,255,255,0.3);
-color:#aaa;
-padding:12px 30px;
-border-radius:30px;
-cursor:pointer;
-font-size:0.95rem;
-font-family:'Poppins',sans-serif;
-transition:all 0.4s ease;
-opacity:0;
-visibility:hidden;
-}
+        @keyframes fadeOutText {
+            to { opacity: 0; transform: translateY(-10px); }
+        }
 
-.btn-show{
-animation:fadeIn 1.2s forwards;
-visibility:visible;
-}
-
-.btn-close:hover{
-background:rgba(255,255,255,0.1);
-color:#fff;
-border-color:#fff;
-transform:scale(1.05);
-}
-
-/* Final Screen */
-
-#final-screen{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:#000;
-display:flex;
-justify-content:center;
-align-items:center;
-z-index:100;
-opacity:0;
-pointer-events:none;
-transition:opacity 3s ease-in-out;
-}
-
-.final-text{
-font-family:'Playfair Display',serif;
-font-size:1.8rem;
-color:#777;
-text-align:center;
-}
-
-/* Bottom note */
-
-.bottom-note{
-position:fixed;
-bottom:20px;
-width:100%;
-text-align:center;
-font-family:'Playfair Display',serif;
-font-size:1.1rem;
-color:rgba(255,255,255,0.35);
-letter-spacing:1px;
-z-index:5;
-}
-
-@keyframes fadeOut{
-to{
-opacity:0;
-transform:translateY(-20px);
-}
-}
-
-</style>
+        /* Mobile Adjustments */
+        @media (max-width: 480px) {
+            .glass-card {
+                padding: 40px 20px;
+            }
+            h1 { font-size: 1.5rem; letter-spacing: 3px; }
+            #message-text { font-size: 1.1rem; min-height: 200px; }
+            .final-text { font-size: 1.3rem; }
+        }
+    </style>
 </head>
 
 <body>
 
-<div id="rain-container"></div>
+    <div id="rain-container"></div>
 
-<div class="glass-card" id="main-card">
+    <div class="glass-card" id="main-card">
+        <div class="symbol">🥀</div>
+        <h1>MARYAM</h1>
+        <div id="message-text"></div>
+        <button class="btn-close" id="close-btn" onclick="closeExperience()">Close this.</button>
+    </div>
 
-<div class="symbol">🥀</div>
+    <div id="final-screen">
+        <div class="final-text" id="final-txt-el">Take care of yourself, wherever life takes you.</div>
+    </div>
 
-<h1>MARYAM</h1>
+    <div class="bottom-note">
+        You were so rare and Miso sends his bears.
+    </div>
 
-<div id="message-text"></div>
+    <script>
+        const message = "Sometimes, the hardest part of moving forward is letting go of the words we never said. I wanted to thank you for the time we shared, for the quiet moments, and the lessons learned. We cross paths for reasons we don't always understand, and we part ways when the journey asks us to walk different roads. I want you to know something, honestly.I love you, and I will probably always carry that love with me. But I also know that life will lead you to someone who can give you everything you deserve. I carry no ill will, only gratitude for the person you are. May your path be bright, even where mine cannot follow.";
 
-<button class="btn-close" id="close-btn" onclick="closeExperience()">Close this.</button>
+        const textContainer = document.getElementById('message-text');
+        const closeBtn = document.getElementById('close-btn');
 
-</div>
+        let i = 0;
 
-<div id="final-screen">
-<div class="final-text">Take care of yourself, wherever life takes you.</div>
-</div>
+        function typeWriter() {
+            if (i < message.length) {
+                textContainer.textContent += message.charAt(i);
+                
+                let char = message.charAt(i);
+                i++;
 
-<div class="bottom-note">
-You were so rare and Miso sends his bears.
-</div>
+                let speed = 45;
+                if (char === '.' || char === ',' || char === '—') {
+                    speed = 500;
+                }
 
-<script>
+                setTimeout(typeWriter, speed);
+            } else {
+                closeBtn.classList.add('btn-show');
+            }
+        }
 
-const message="Sometimes, the hardest part of moving forward is letting go of the words we never said. I wanted to thank you for the time we shared, for the quiet moments, and the lessons learned. We cross paths for reasons we don't always understand, and we part ways when the journey asks us to walk different roads. I want you to know something honestly — I love you, and I will probably always carry that love with me. But I also know that life will lead you to someone who can give you everything you deserve. I carry no ill will, only gratitude for the person you are. May your path be bright, even where mine cannot follow.";
+        function createRain() {
+            const rainContainer = document.getElementById('rain-container');
+            const dropCount = window.innerWidth < 480 ? 60 : 120; // Fewer drops on mobile for performance
 
-const textContainer=document.getElementById('message-text');
-const closeBtn=document.getElementById('close-btn');
+            for (let i = 0; i < dropCount; i++) {
+                const drop = document.createElement('div');
+                drop.className = 'drop';
+                drop.style.left = Math.random() * 100 + 'vw';
+                drop.style.animationDuration = (Math.random() * 2 + 1) + 's';
+                drop.style.animationDelay = Math.random() * 2 + 's';
+                drop.style.opacity = Math.random() * 0.4 + 0.1;
+                rainContainer.appendChild(drop);
+            }
+        }
 
-let i=0;
+        function closeExperience() {
+            // Prevent double clicks
+            closeBtn.style.pointerEvents = 'none';
+            document.getElementById('main-card').style.opacity = '0';
 
-function typeWriter(){
+            setTimeout(() => {
+                document.getElementById('main-card').style.display = 'none';
+                document.getElementById('final-screen').style.opacity = '1';
+            }, 1500);
 
-if(i<message.length){
+            setTimeout(() => {
+                document.getElementById('final-txt-el').style.animation = 'fadeOutText 4s forwards';
+            }, 5000);
+        }
 
-textContainer.innerHTML+=message.charAt(i);
-
-i++;
-
-let speed=45;
-
-if(message.charAt(i-1)==='.'||message.charAt(i-1)===','){
-speed=500;
-}
-
-setTimeout(typeWriter,speed);
-
-}else{
-
-closeBtn.classList.add('btn-show');
-
-}
-
-}
-
-function createRain(){
-
-const rainContainer=document.getElementById('rain-container');
-
-for(let i=0;i<120;i++){
-
-const drop=document.createElement('div');
-
-drop.className='drop';
-
-drop.style.left=Math.random()*100+'vw';
-
-drop.style.animationDuration=(Math.random()*2+1)+'s';
-
-drop.style.animationDelay=Math.random()*2+'s';
-
-drop.style.opacity=Math.random()*0.5+0.2;
-
-rainContainer.appendChild(drop);
-
-}
-
-}
-
-function closeExperience(){
-
-document.getElementById('main-card').style.opacity='0';
-
-setTimeout(()=>{
-
-document.getElementById('final-screen').style.opacity='1';
-
-document.getElementById('main-card').style.display='none';
-
-},2000);
-
-setTimeout(()=>{
-
-document.querySelector('.final-text').style.animation='fadeOut 3s forwards';
-
-},4000);
-
-}
-
-window.addEventListener('load',()=>{
-
-createRain();
-
-setTimeout(typeWriter,1500);
-
-});
-
-</script>
+        window.addEventListener('load', () => {
+            createRain();
+            setTimeout(typeWriter, 1500);
+        });
+    </script>
 
 </body>
 </html>
-```
