@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,21 +17,22 @@ box-sizing:border-box;
 }
 
 body{
-background: linear-gradient(135deg,#0a0e27 0%,#1a1a3e 50%,#0d0d1f 100%);
+background:#050509;
 color:#e0e0e0;
 font-family:'Poppins',sans-serif;
-overflow:hidden;
+overflow-y:auto;
+min-height:100vh;
+width:100%;
 display:flex;
 justify-content:center;
 align-items:center;
-height:100vh;
-width:100%;
+padding:40px 0;
 }
 
 /* Rain */
 
 #rain-container{
-position:absolute;
+position:fixed;
 top:0;
 left:0;
 width:100%;
@@ -41,7 +43,7 @@ z-index:1;
 
 .drop{
 position:absolute;
-background:rgba(255,255,255,0.1);
+background:rgba(255,255,255,0.25);
 width:1px;
 height:50px;
 animation:fall linear infinite;
@@ -58,15 +60,15 @@ transform:translateY(100vh);
 .glass-card{
 position:relative;
 z-index:10;
-background:rgba(255,255,255,0.06);
-backdrop-filter:blur(15px);
-border:1px solid rgba(255,255,255,0.1);
+background:rgba(0,0,0,0.55);
+backdrop-filter:blur(12px);
+border:1px solid rgba(255,255,255,0.08);
 border-radius:20px;
-padding:55px 45px;
+padding:60px 45px;
 width:90%;
 max-width:560px;
 text-align:center;
-box-shadow:0 10px 35px rgba(0,0,0,0.4);
+box-shadow:0 15px 40px rgba(0,0,0,0.7);
 animation:fadeIn 2s ease-out forwards;
 transition:opacity 2s ease;
 }
@@ -107,7 +109,7 @@ font-weight:400;
 letter-spacing:6px;
 margin-bottom:30px;
 color:#fff;
-font-size:2.2rem;
+font-size:2.3rem;
 text-transform:uppercase;
 }
 
@@ -115,7 +117,7 @@ text-transform:uppercase;
 
 #message-text{
 font-family:'Playfair Display',serif;
-font-size:1.35rem;
+font-size:1.4rem;
 line-height:1.9;
 min-height:180px;
 color:#e2e2e2;
@@ -171,7 +173,7 @@ transition:opacity 3s ease-in-out;
 
 .final-text{
 font-family:'Playfair Display',serif;
-font-size:1.7rem;
+font-size:1.8rem;
 color:#777;
 text-align:center;
 }
@@ -185,7 +187,7 @@ width:100%;
 text-align:center;
 font-family:'Playfair Display',serif;
 font-size:1.1rem;
-color:rgba(255,255,255,0.4);
+color:rgba(255,255,255,0.35);
 letter-spacing:1px;
 z-index:5;
 }
@@ -226,7 +228,7 @@ You were so rare and Miso sends his bears.
 
 <script>
 
-const message="Sometimes, the hardest part of moving forward is letting go of the words we never said. I wanted to thank you for the time we shared, for the quiet moments, and the lessons learned. We cross paths for reasons we don't always understand, and we part ways when the journey asks us to walk different roads. I want you to know something honestly — I love you, and a part of me will probably always love you. But I also know that life will lead you to someone who can give you everything you deserve. I carry no ill will, only gratitude for the person you are. May your path be bright, even where mine cannot follow.";
+const message="Sometimes, the hardest part of moving forward is letting go of the words we never said. I wanted to thank you for the time we shared, for the quiet moments, and the lessons learned. We cross paths for reasons we don't always understand, and we part ways when the journey asks us to walk different roads. I want you to know something honestly — I love you, and I will probably always carry that love with me. But I also know that life will lead you to someone who can give you everything you deserve. I carry no ill will, only gratitude for the person you are. May your path be bright, even where mine cannot follow.";
 
 const textContainer=document.getElementById('message-text');
 const closeBtn=document.getElementById('close-btn');
@@ -244,7 +246,7 @@ i++;
 let speed=45;
 
 if(message.charAt(i-1)==='.'||message.charAt(i-1)===','){
-speed=550;
+speed=500;
 }
 
 setTimeout(typeWriter,speed);
@@ -261,7 +263,7 @@ function createRain(){
 
 const rainContainer=document.getElementById('rain-container');
 
-for(let i=0;i<100;i++){
+for(let i=0;i<120;i++){
 
 const drop=document.createElement('div');
 
@@ -313,3 +315,4 @@ setTimeout(typeWriter,1500);
 
 </body>
 </html>
+```
