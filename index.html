@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Maryam</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
 
@@ -58,16 +58,15 @@ transform:translateY(100vh);
 .glass-card{
 position:relative;
 z-index:10;
-background:rgba(255,255,255,0.05);
+background:rgba(255,255,255,0.06);
 backdrop-filter:blur(15px);
--webkit-backdrop-filter:blur(15px);
 border:1px solid rgba(255,255,255,0.1);
 border-radius:20px;
-padding:50px 40px;
+padding:55px 45px;
 width:90%;
-max-width:550px;
+max-width:560px;
 text-align:center;
-box-shadow:0 8px 32px 0 rgba(0,0,0,0.37);
+box-shadow:0 10px 35px rgba(0,0,0,0.4);
 animation:fadeIn 2s ease-out forwards;
 transition:opacity 2s ease;
 }
@@ -90,23 +89,22 @@ font-size:3.5rem;
 margin-bottom:25px;
 display:inline-block;
 animation:pulse 4s ease-in-out infinite;
-filter:drop-shadow(0 0 10px rgba(255,255,255,0.3));
 }
 
 @keyframes pulse{
 0%,100%{
 transform:scale(1);
-opacity:0.6;
+opacity:0.7;
 }
 50%{
 transform:scale(1.08);
-opacity:0.3;
+opacity:0.4;
 }
 }
 
 h1{
-font-weight:300;
-letter-spacing:5px;
+font-weight:400;
+letter-spacing:6px;
 margin-bottom:30px;
 color:#fff;
 font-size:2.2rem;
@@ -116,11 +114,11 @@ text-transform:uppercase;
 /* Message */
 
 #message-text{
-font-family:'Dancing Script',cursive;
-font-size:1.3rem;
-line-height:1.8;
-min-height:160px;
-color:#d1d1d1;
+font-family:'Playfair Display',serif;
+font-size:1.35rem;
+line-height:1.9;
+min-height:180px;
+color:#e2e2e2;
 text-align:center;
 margin-bottom:35px;
 }
@@ -172,9 +170,9 @@ transition:opacity 3s ease-in-out;
 }
 
 .final-text{
-font-family:'Dancing Script',cursive;
-font-size:1.6rem;
-color:#555;
+font-family:'Playfair Display',serif;
+font-size:1.7rem;
+color:#777;
 text-align:center;
 }
 
@@ -185,14 +183,12 @@ position:fixed;
 bottom:20px;
 width:100%;
 text-align:center;
-font-family:'Dancing Script',cursive;
+font-family:'Playfair Display',serif;
 font-size:1.1rem;
 color:rgba(255,255,255,0.4);
 letter-spacing:1px;
 z-index:5;
 }
-
-/* fade out */
 
 @keyframes fadeOut{
 to{
@@ -221,17 +217,16 @@ transform:translateY(-20px);
 </div>
 
 <div id="final-screen">
-<div class="final-text">Take care of yourself, wherever you are.</div>
+<div class="final-text">Take care of yourself, wherever life takes you.</div>
 </div>
 
-<!-- Bottom text -->
 <div class="bottom-note">
 You were so rare and Miso sends his bears.
 </div>
 
 <script>
 
-const message="Sometimes, the hardest part of moving forward is letting go of the words we never said. I wanted to thank you for the time we shared, for the quiet moments, and the lessons learned. We cross paths for reasons we don't always understand, and we part ways when the journey demands a different direction. I carry no ill will, only gratitude for the person you are. May your path be bright, even where mine cannot follow.";
+const message="Sometimes, the hardest part of moving forward is letting go of the words we never said. I wanted to thank you for the time we shared, for the quiet moments, and the lessons learned. We cross paths for reasons we don't always understand, and we part ways when the journey asks us to walk different roads. I want you to know something honestly — I love you, and a part of me will probably always love you. But I also know that life will lead you to someone who can give you everything you deserve. I carry no ill will, only gratitude for the person you are. May your path be bright, even where mine cannot follow.";
 
 const textContainer=document.getElementById('message-text');
 const closeBtn=document.getElementById('close-btn');
@@ -246,10 +241,10 @@ textContainer.innerHTML+=message.charAt(i);
 
 i++;
 
-let speed=50;
+let speed=45;
 
 if(message.charAt(i-1)==='.'||message.charAt(i-1)===','){
-speed=600;
+speed=550;
 }
 
 setTimeout(typeWriter,speed);
